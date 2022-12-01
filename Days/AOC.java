@@ -10,7 +10,9 @@ public class AOC {
         File file = new File( "inputs/Day" + day + ".txt");
         if(!file.exists())
         {
-            return new ArrayList<>();
+            System.out.println("File doesn't exist");
+            System.out.println(file.getPath());
+            System.exit(0);
         }
         Scanner sc = null;
 
