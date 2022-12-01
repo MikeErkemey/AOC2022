@@ -7,7 +7,7 @@ public class AOC {
 
     public static List<String> input(int day) {
 
-        File file = new File("inputs/" + day + ".txt");
+        File file = new File( "inputs/Day" + day + ".txt");
         if(!file.exists())
         {
             return new ArrayList<>();
