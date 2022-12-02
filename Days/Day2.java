@@ -1,6 +1,4 @@
-import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 
 public class Day2 {
 
@@ -21,7 +19,7 @@ public class Day2 {
             if(part == 2)
                 points += choice == 1 ? (opponentChoice + 1) % 3 + 1  : choice == 2 ? 3 + opponentChoice  :  6 + (opponentChoice) % 3 + 1;
         }
-        
+
         return points;
     }
 }
