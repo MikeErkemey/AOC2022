@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
@@ -20,9 +21,9 @@ public class Day3 {
                 .mapToInt(c -> c).sum();
         //partitions had to look up
         final AtomicInteger counter = new AtomicInteger();
-        List<List<String>> partitions = input.stream()
+        List<List<String>> partitions = new ArrayList<>(input.stream()
                         .collect(Collectors.groupingBy(it -> counter.getAndIncrement() / 3))
-                        .values().stream().toList();
+                        .values());
 
         int part2 = partitions.stream().map(arr -> arr.get(0)
                         .replace("", "\n")
