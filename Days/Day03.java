@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
-public class Day3 {
+public class Day03 {
 
     public static void main(String[] args) {
         System.out.println("part1: " + solution(AOC.input(3), 1));

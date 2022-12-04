@@ -1,6 +1,6 @@
 import java.util.List;
 
-public class Day2 {
+public class Day02 {
 
     public static void main(String[] args) {
         System.out.println("part1: " + solution(AOC.input(2), 1));

@@ -2,7 +2,7 @@ import java.time.temporal.ValueRange;
 import java.util.Arrays;
 import java.util.List;
 
-public class Day4 {
+public class Day04 {
 
     public static void main(String[] args) {
         System.out.println("part1: " + solution(AOC.input(4), 1));
