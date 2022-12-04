@@ -7,7 +7,7 @@ public class AOC {
 
     public static List<String> input(int day) {
 
-        File file = new File( "inputs/Day" + day + ".txt");
+        File file = new File( "inputs/Day" + String.format("%02d", day) + ".txt");
         if(!file.exists())
         {
             System.out.println("File doesn't exist");
