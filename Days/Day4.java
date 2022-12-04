@@ -14,23 +14,17 @@ public class Day4 {
                 .map(s -> Arrays.stream(s.replace(",", "-").split("-"))
                         .mapToInt(x -> Integer.parseInt(x))
                         .toArray())
-                .filter(s -> s[0] <=s[2] && s[1] >=s[3] || s[0] >=s[2] && s[1] <=s[3])
+                .filter(arr -> arr[0] <= arr[2] && arr[1] >= arr[3] || arr[0] >= arr[2] && arr[1] <= arr[3])
                 .count();
-
 
         long part2 =  input.stream()
                 .map(s -> Arrays.stream(s.replace(",", "-").split("-"))
                         .mapToInt(x -> Integer.parseInt(x))
                         .toArray())
-                .filter(s -> {
-                    for(int i = s[0]; i <= s[1]; i++ ) {
-                        if (i >= s[2] && i <= s[3]) return true;
-                    }
-                    return false;
-                }).count();
+                .filter(arr -> arr[0] <= arr[2] && arr[2] <= arr[1] || arr[2] <= arr[0] && arr[0] <= arr[3])
+                .count();
         
-        return part == 1 ? part1 : part2 ;
+        return part == 1 ? part1 : part2;
     }
-
 
 }
