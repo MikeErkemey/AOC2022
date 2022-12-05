@@ -13,13 +13,8 @@ public class Day05 {
     }
 
     public static String solution(List<String> input, int part) {
-        List<String> sArr = new ArrayList<>();
+        List<String> sArr = input.subList(0,8);
         List<Stack<String>> stacks = new ArrayList<>();
-        int l = 0;
-
-        while(!input.get(l).contains("1")) {
-            sArr.add(input.remove(0));
-        }
 
         for (int i = 0; i < 9; i++) {
             stacks.add(new Stack<>());
@@ -27,7 +22,6 @@ public class Day05 {
 
         for (int i = sArr.size() - 1; i >= 0; i--) {
             String[] blocks = sArr.get(i).replace("    ", " ").split(" ");
-
             for (int j = 0; j < blocks.length; j++) {
                 if(blocks[j].equals("")) continue;
                 stacks.get(j).push(blocks[j]);
@@ -36,19 +30,18 @@ public class Day05 {
 
         Stack<String> temp = new Stack<>();
 
-        for (int i = 2; i < input.size(); i++ ) {
-            String[] moves = input.get(i).split("move | from | to ");
+        for (String str : input.subList(10, input.size())) {
+            int[] moves =  Arrays.stream(str.replace("move ", "").split(" from | to ")).mapToInt(c -> Integer.parseInt(c)).toArray();
 
-            for (int j = 0; j < Integer.parseInt(moves[1]); j++) {
+            for (int j = 0; j < moves[0]; j++) {
                 if(part == 1){
-                    stacks.get(Integer.parseInt(moves[3])-1).push(stacks.get(Integer.parseInt(moves[2]) - 1).pop());
+                    stacks.get(moves[2]-1).push(stacks.get(moves[1] - 1).pop());
                 }else {
-                    temp.push(stacks.get(Integer.parseInt(moves[2]) - 1).pop());
+                    temp.push(stacks.get(moves[1] - 1).pop());
                 }
             }
-
             while(!temp.isEmpty()) {
-                stacks.get(Integer.parseInt(moves[3]) - 1).push(temp.pop());
+                stacks.get(moves[2] - 1).push(temp.pop());
             }
         }
 
