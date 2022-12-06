@@ -12,10 +12,9 @@ public class Day06 {
         int distinctChars = part == 1 ? 4 : 14;
 
         for (int i = distinctChars; i <= s.length(); i++) {
-            if(s.substring(i-distinctChars, i).chars().distinct().count() == distinctChars){
-                return i;
-            }
+            if(s.substring(i-distinctChars, i).chars().distinct().count() == distinctChars) return i;
         }
+        
         return -1;
     }
 }
