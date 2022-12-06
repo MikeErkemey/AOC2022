@@ -12,7 +12,7 @@ public class Day05 {
         System.out.println("part2: " + solution(AOC.input(5), 2));
     }
 
-    public static String solution(List<String> input, int part) {
+    private static String solution(List<String> input, int part) {
         List<String> sArr = input.subList(0,8);
         List<Stack<String>> stacks = new ArrayList<>();
 

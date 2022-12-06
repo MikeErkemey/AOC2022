@@ -7,7 +7,7 @@ public class Day02 {
         System.out.println("part2: " + solution(AOC.input(2), 2));
     }
 
-    public static int solution(List<String> input, int part) {
+    private static int solution(List<String> input, int part) {
         int points = 0;
 
         for (String s : input) {

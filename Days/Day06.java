@@ -7,7 +7,7 @@ public class Day06 {
         System.out.println("part2: " + solution(AOC.input(6), 2));
     }
 
-    public static int solution(List<String> input, int part) {
+    private static int solution(List<String> input, int part) {
         String s = input.get(0);
         int distinctChars = part == 1 ? 4 : 14;
 

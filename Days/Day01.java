@@ -7,7 +7,7 @@ public class Day01 {
         System.out.println("part2: " + solution(AOC.input(1), 2));
     }
 
-    public static int solution(List<String> input, int part) {
+    private static int solution(List<String> input, int part) {
 
         List<Integer> elfCalories = new ArrayList<>();
         int sum = 0;

@@ -10,7 +10,7 @@ public class Day03 {
         System.out.println("part2: " + solution(AOC.input(3), 2));
     }
 
-    public static int solution(List<String> input, int part) {
+    private static int solution(List<String> input, int part) {
 
         int part1 = input.stream().map(s -> s.substring(0,s.length()/2)
                         .replace("", "\n")

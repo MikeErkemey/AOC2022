@@ -9,7 +9,7 @@ public class Day04 {
         System.out.println("part2: " + solution(AOC.input(4), 2));
     }
 
-    public static long solution(List<String> input, int part) {
+    private static long solution(List<String> input, int part) {
         long part1 = input.stream()
                 .map(s -> Arrays.stream(s.replace(",", "-").split("-"))
                         .mapToInt(x -> Integer.parseInt(x))
