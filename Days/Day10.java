@@ -5,30 +5,23 @@ public class Day10 {
 
     public static void main(String[] args) {
         System.out.println("part1: " + solution(AOC.input(10), 1));
-        System.out.println("part2: BRJLFULP -> Look at the printed message");
+        System.out.println("part2: " + solution(AOC.input(10), 2));
     }
 
-    private static long solution(List<String> input, int part) {
+    private static String solution(List<String> input, int part) {
         int cycle = 0;
         long x = 1;
         long sum = 0;
-        StringBuilder CRTRow = new StringBuilder();
+        StringBuilder CRT = new StringBuilder("\n");
 
         for(String s: input) {
             for (int i = 0; i < s.split(" ").length; i++) {
-                CRTRow.append((x-1 <= cycle%40 && x+1 >= cycle%40)  ? "█" : " " );
-                if ((cycle++ + 20) % 40 == 0) sum += x * cycle;
+                CRT.append( (x-1 <= cycle%40 && x+1 >= cycle%40)  ? "█" : " " ).append(cycle%40 == 39? "\n": "");
+                if ((++cycle + 20) % 40 == 0) sum += x * cycle;
             }
             if(s.split(" ").length == 2) x += Integer.parseInt(s.split(" ")[1]);
         }
 
-        for (int i = 0; i < CRTRow.length(); i++) {
-            if(i%40 == 0) System.out.println();
-            System.out.print(CRTRow.charAt(i));
-        }
-
-        System.out.println("\n");
-
-        return sum;
+        return part == 1 ? String.valueOf(sum): CRT.toString();
     }
 }
