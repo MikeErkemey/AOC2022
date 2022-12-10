@@ -17,8 +17,7 @@ public class Day10 {
         for(String s: input) {
             for (int i = 0; i < s.split(" ").length; i++) {
                 CRTRow.append((x-1 <= cycle%40 && x+1 >= cycle%40)  ? "█" : " " );
-                cycle++;
-                if ((cycle + 20) % 40 == 0) sum += x * cycle;
+                if ((cycle++ + 20) % 40 == 0) sum += x * cycle;
             }
             if(s.split(" ").length == 2) x += Integer.parseInt(s.split(" ")[1]);
         }
