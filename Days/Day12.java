@@ -19,39 +19,31 @@ public class Day12 {
         Node start = map.values().stream().filter(n -> n.height == 'S').findFirst().get();
         Node end = map.values().stream().filter(n -> n.height == 'E').findFirst().get();
 
-        int steps = dijkStra(start, end, map);
+        int part1 = dijkStra(start, end, map);
+        int part2 = Math.min(part1, map.values().stream().filter(n -> n.height == 'a').mapToInt(n->dijkStra(n, end,map)).min().getAsInt());
 
-        return steps;
+        return part == 1 ? part1 : part2;
     }
 
     public static int dijkStra(Node start, Node end, HashMap<Point, Node> map) {
-        PriorityQueue<Node> pq = new PriorityQueue<>(Comparator.comparing(n -> n.height));
+        map.values().stream().forEach(n ->{n.step = 0; n.visited = false;});
+        PriorityQueue<Node> pq = new PriorityQueue<>(Comparator.comparing(n -> n.step));
         start.height = 'a';
         end.height = 'z';
         Node current = start;
-        while(current != end ) {
+
+        while(current != end  ) {
+            if(current == null) return Integer.MAX_VALUE;
             current.visited = true;
-            System.out.println(current.step);
-            List<Node> neighbours = getNeighbours(current, map);
-            for (Node neighbour : neighbours) {
+            for (Node neighbour : getNeighbours(current, map)) {
                 if ((current.height + 1) >= neighbour.height) {
 
-                    if (pq.contains(neighbour)) {
+                    if (pq.contains(neighbour)) pq.remove(neighbour);
+                    if (neighbour.step > current.step + 1 || !pq.contains(current)) neighbour.step = current.step + 1;
 
-                        pq.remove(neighbour);
-
-                        if (!(neighbour.step > current.step + 1)) {
-                            pq.add(neighbour);
-                            continue;
-                        }
-                    }
-                    neighbour.step = current.step + 1;
                     pq.add(neighbour);
-
                 }
             }
-            pq.stream().forEach(System.out::println);
-//            System.out.println();
             current = pq.peek();
             pq.remove(current);
         }
@@ -67,7 +59,6 @@ public class Day12 {
         return new ArrayList<>(Arrays.asList(r,l,u,d)).stream().filter(n -> n != null && !n.visited).toList();
     }
 
-
     private static class Node {
         char height;
         Point point;
@@ -77,21 +68,11 @@ public class Day12 {
         public Node(char height, Point point) {
             this.height = height;
             this.point = point;
-            step = 0;
-        }
-
-        @Override
-        public String toString() {
-            return "Node{" +
-                    "height=" + height +
-                    ", point=" + point +
-                    ", step=" + step +
-                    ", visited=" + visited +
-                    '}';
+            this.step = 0;
         }
     }
 
-    private static  class Point {
+    private static class Point {
         int x;
         int y;
 
@@ -113,8 +94,4 @@ public class Day12 {
             return Objects.hash(x, y);
         }
     }
-
-
-
-
 }
