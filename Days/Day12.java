@@ -18,6 +18,8 @@ public class Day12 {
 
         Node start = map.values().stream().filter(n -> n.height == 'S').findFirst().get();
         Node end = map.values().stream().filter(n -> n.height == 'E').findFirst().get();
+        start.height = 'a';
+        end.height = 'z';
 
         int part1 = dijkStra(start, end, map);
         int part2 = Math.min(part1, map.values().stream().filter(n -> n.height == 'a').mapToInt(n->dijkStra(n, end,map)).min().getAsInt());
@@ -25,19 +27,15 @@ public class Day12 {
         return part == 1 ? part1 : part2;
     }
 
-    public static int dijkStra(Node start, Node end, HashMap<Point, Node> map) {
+    public static int dijkStra(Node current, Node end, HashMap<Point, Node> map) {
         map.values().stream().forEach(n ->{n.step = 0; n.visited = false;});
         PriorityQueue<Node> pq = new PriorityQueue<>(Comparator.comparing(n -> n.step));
-        start.height = 'a';
-        end.height = 'z';
-        Node current = start;
 
         while(current != end  ) {
             if(current == null) return Integer.MAX_VALUE;
             current.visited = true;
             for (Node neighbour : getNeighbours(current, map)) {
                 if ((current.height + 1) >= neighbour.height) {
-
                     if (pq.contains(neighbour)) pq.remove(neighbour);
                     if (neighbour.step > current.step + 1 || !pq.contains(current)) neighbour.step = current.step + 1;
 
