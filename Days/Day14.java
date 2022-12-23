@@ -47,28 +47,18 @@ public class Day14 {
             int xPrev = -1;
             int yPrev = -1;
             for(String s2 : s.split( " -> ")) {
+                if(xPrev == -1) {
+                    xPrev = Integer.parseInt(s2.split(",")[0]);
+                    yPrev = Integer.parseInt(s2.split(",")[1]);
+                    continue;
+                }
+
                 int x = Integer.parseInt(s2.split(",")[0]);
                 int y = Integer.parseInt(s2.split(",")[1]);
-
-                if(x == xPrev) {
-                    if (y > yPrev) {
-                        for(int i = yPrev; i <= y; i++){
-                            points.add(new Point(x,i));
-                        }
-                    }else {
-                        for(int i = yPrev; i >= y; i--){
-                            points.add(new Point(x,i));
-                        }
-                    }
-                }else if(y == yPrev) {
-                    if (x > xPrev) {
-                        for(int i = xPrev; i <= x; i++){
-                            points.add(new Point(i,y));
-                        }
-                    }else {
-                        for(int i = xPrev; i >= x; i--){
-                            points.add(new Point(i,y));
-                        }
+                
+                for(int i = Math.min(yPrev, y); i <= Math.max(yPrev, y); i++) {
+                    for (int j = Math.min(xPrev,x); j <= Math.max(xPrev, x) ; j++) {
+                        points.add(new Point(j,i));
                     }
                 }
                 xPrev = x;
