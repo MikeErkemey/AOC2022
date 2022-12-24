@@ -1,3 +1,4 @@
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.IntStream;
 
@@ -24,30 +25,41 @@ public class Day15 {
         return sensorSet.size() - sensors.stream().map(s -> s.beacon).filter(b -> b.y == yCheck).distinct().count();
     }
 
-    private static long part2(List<String> input) {
+    private static String part2(List<String> input) {
         List<Sensor> sensors = parseSensors(input);
-        List<Point> points = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            for (int j = 0; j < 20; j++) {
-                boolean inreach = false;
-                for(Sensor s : sensors) {
-                    if(inReach(i, j, s.sensor, s.distance )) {
-                        inreach = true;
-                        break;
-                    }
-                }
-                if(!inreach){
-                    return i * 4000000 + j;
-                }
-                points.add(new Point(i,j));
+        int limit = 4000000;
+//        int limit = 20;
+        for (int i = 0; i <= limit; i++) {
+            int missingX = missingX(sensors, i, limit);
+            if(missingX != -1) {
+                BigDecimal bigDecimalx = new BigDecimal(missingX);
+                BigDecimal bigDecimaly = new BigDecimal(i);
+                BigDecimal bigDecimallimit = new BigDecimal(limit);
+                return bigDecimalx.multiply(bigDecimallimit).add(bigDecimaly).toString();
             }
-            System.out.println(i);
         }
-        return -1;
+        return "No answer ?";
     }
 
-    private static boolean inReach(int x, int y, Point sensor, int distance) {
-        return distance >= Math.abs(y - sensor.y) + Math.abs(x - sensor.x);
+    private static int missingX(List<Sensor> sensors, int y, int limit) {
+        ArrayList<int[]> ranges = new ArrayList<>();
+
+        for (Sensor sensor : sensors) {
+            int distLeft = sensor.distance - (Math.abs(y- sensor.sensor.y));
+            if (distLeft < 0) continue;
+            ranges.add(new int[]{Math.max(0,sensor.sensor.x - distLeft), Math.min(sensor.sensor.x + distLeft, limit)});
+        }
+
+        ranges.sort(Comparator.comparing(r -> r[0]));
+
+        int max = 0;
+        for(int[] range : ranges) {
+            if(max + 1 < range[0]) {
+                return range[0] - 1;
+            }
+            max = Math.max(max, range[1]);
+        }
+        return -1;
     }
 
 
